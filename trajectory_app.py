@@ -588,7 +588,7 @@ def clean_and_parse_csv(csv_content: str) -> Optional[pl.DataFrame]:
             # Check if we have the required columns
             if all(col in df.columns for col in ["MD", "Inc", "Azi"]):
                 return df
-        except pl.errors.ComputeError:
+        except pl.exceptions.ComputeError:
             # Ignore parsing errors for this format
             pass
 
@@ -623,7 +623,7 @@ def clean_and_parse_csv(csv_content: str) -> Optional[pl.DataFrame]:
                         df = df.with_columns(pl.col(col).cast(pl.Float64))
 
                 return df
-        except pl.errors.ComputeError as e:
+        except pl.exceptions.ComputeError as e:
             st.error(f"Error parsing semicolon-separated CSV: {str(e)}")
 
         # Try tab-separated format
@@ -636,12 +636,12 @@ def clean_and_parse_csv(csv_content: str) -> Optional[pl.DataFrame]:
             )
             if all(col in df.columns for col in ["MD", "Inc", "Azi"]):
                 return df
-        except pl.errors.ComputeError:
+        except pl.exceptions.ComputeError:
             pass
 
         return None
 
-    except pl.errors.ComputeError as e:
+    except pl.exceptions.ComputeError as e:
         st.error(f"Error processing CSV: {str(e)}")
         return None
 
@@ -887,7 +887,7 @@ def main() -> None:
                 )
 
         except (
-            pl.errors.ComputeError,
+            pl.exceptions.ComputeError,
             ValueError,
             KeyError,
         ) as e:
