@@ -67,6 +67,7 @@ def interpolate_survey_point(
                 "North": float(df_results["North"][i]),
                 "East": float(df_results["East"][i]),
                 "DLS": float(df_results["DLS"][i]),
+                "T": float(df_results["T"][i]),
                 "DDI": float(df_results["DDI"][i]),
             }
 
@@ -171,10 +172,15 @@ def interpolate_survey_point(
         (beta * 180 / math.pi) / target_course * 100 if target_course > 0 else 0.0
     )
 
-    # Simplified DDI calculation (approximate)
+    # Calculate T parameter (interpolated)
+    t1 = float(df_results["T"][lower_idx])
+    beta_degrees = beta * 180 / math.pi
+    target_t = t1 + beta_degrees
+
+    # Calculate DDI using T parameter
     vsec = math.sqrt(target_east**2 + target_north**2)
-    if target_tvd > 0:
-        target_ddi = math.log10((vsec * target_md) / target_tvd) if vsec > 0 else 0.0
+    if target_tvd > 0 and vsec > 0 and target_t > 0:
+        target_ddi = math.log10((vsec * target_md * target_t) / target_tvd)
     else:
         target_ddi = 0.0
 
@@ -186,6 +192,7 @@ def interpolate_survey_point(
         "North": target_north,
         "East": target_east,
         "DLS": target_dls,
+        "T": target_t,
         "DDI": target_ddi,
     }
 
@@ -225,8 +232,11 @@ def calculate_trajectory_parameters(df: pl.DataFrame) -> pl.DataFrame:
         "Build_Rate": 0.0,
         "Turn_Rate": 0.0,
         "Vsec": 0.0,
+        "AHD": 0.0,
         "Closure_Distance": 0.0,
         "Closure_Azimuth": 0.0,
+        "Tortuosity": 0.0,
+        "T": 0.0,
         "DDI": 0.0,
     }
     results.append(first_row)
@@ -268,6 +278,11 @@ def calculate_trajectory_parameters(df: pl.DataFrame) -> pl.DataFrame:
         # Step 2.4: Calculate DLS
         dls: float = (beta * 180 / math.pi) / delta_md * 100 if delta_md > 0 else 0.0
 
+        # Step 2.4b: Calculate T (cumulative sum of beta in degrees)
+        beta_degrees: float = beta * 180 / math.pi
+        previous_t: float = results[i - 1]["T"] if i > 0 else 0.0
+        t_parameter: float = previous_t + beta_degrees
+
         # Step 2.5: Calculate ΔE, ΔN, ΔV
         delta_e: float = (
             (delta_md / 2)
@@ -294,21 +309,38 @@ def calculate_trajectory_parameters(df: pl.DataFrame) -> pl.DataFrame:
         east: float = results[i - 1]["East"] + delta_e
         tvd: float = results[i - 1]["TVD"] + delta_v
 
-        # Step 2.6: Calculate Vsec (horizontal displacement)
-        vsec: float = math.sqrt(east**2 + north**2)
+        # Step 2.6: Calculate AHD (Along Hole Depth) - cumulative horizontal displacement
+        ahd: float = math.sqrt(east**2 + north**2)
 
-        # Step 2.7: Calculate ∑DLS
-        sum_dls: float = sum(r["DLS"] for r in results) + dls
+        # Step 2.6b: Calculate Vsec (Vertical Section) - AHD × cos(azimuth increment)
+        # Azimuth increment from previous point
+        if i > 0:
+            previous_azi = float(df["Azi"][i - 1])
+            azi_increment = (
+                abs(azi2 - previous_azi) * math.pi / 180
+            )  # Convert to radians
+        else:
+            azi_increment = 0.0  # No increment for first point
 
-        # Step 2.8: Calculate Tortuosity
-        tortuosity: float = sum_dls / i if i > 0 else 0.0
+        vsec: float = ahd * math.cos(azi_increment)
 
-        # Step 2.9: Calculate AHD (Actual Horizontal Displacement)
-        ahd: float = math.sqrt(delta_e**2 + delta_n**2)
+        # Step 2.7: Calculate Tortuosity (corrected formula)
+        # Tortuosity = cumulative sum of |ΔMD × ΔDLS| / 100
+        # Where ΔDLS is the change in DLS from previous point
+        if i > 1:
+            previous_dls = results[i - 1]["DLS"]
+            delta_dls = abs(dls - previous_dls)
+        else:
+            delta_dls = abs(dls)  # For first calculation, use current DLS
 
-        # Step 2.11: Calculate DDI
-        if tvd > 0 and ahd > 0 and tortuosity > 0:
-            ddi: float = max(math.log10((ahd * md2 * tortuosity) / tvd), 0.0)
+        delta_tortuosity: float = abs(delta_md * delta_dls) / 100
+        previous_tortuosity: float = results[i - 1]["Tortuosity"] if i > 0 else 0.0
+        tortuosity: float = previous_tortuosity + delta_tortuosity
+
+        # Step 2.11: Calculate DDI (corrected formula using T parameter)
+        # DDI is based on the T parameter (cumulative sum of beta in degrees)
+        if tvd > 0 and ahd > 0 and t_parameter > 0:
+            ddi: float = max(math.log10((ahd * md2 * t_parameter) / tvd), 0.0)
         else:
             ddi = 0.0
 
@@ -341,8 +373,11 @@ def calculate_trajectory_parameters(df: pl.DataFrame) -> pl.DataFrame:
             "Build_Rate": build_rate,
             "Turn_Rate": turn_rate,
             "Vsec": vsec,
+            "AHD": ahd,
             "Closure_Distance": closure_distance,
             "Closure_Azimuth": closure_azimuth,
+            "Tortuosity": tortuosity,
+            "T": t_parameter,
             "DDI": ddi,
         }
         results.append(row)
@@ -444,8 +479,8 @@ def create_vertical_section_plot(df: pl.DataFrame) -> Figure:
             y=df["TVD"].to_list(),
             mode="lines+markers",
             name="Vertical Section",
-            line=dict(color="green", width=3),
-            marker=dict(size=6, color="red"),
+            line={"color": "green", "width": 3},
+            marker={"size": 6, "color": "red"},
         )
     )
 
@@ -480,8 +515,8 @@ def create_ddi_plot(df: pl.DataFrame) -> Figure:
             y=df["DDI"].to_list(),
             mode="lines+markers",
             name="Drilling Difficulty Index",
-            line=dict(color="purple", width=3),
-            marker=dict(size=4, color="red"),
+            line={"color": "purple", "width": 3},
+            marker={"size": 4, "color": "red"},
         )
     )
 
@@ -515,8 +550,8 @@ def create_dls_plot(df: pl.DataFrame) -> Figure:
             y=df["DLS"].to_list(),
             mode="lines+markers",
             name="Dogleg Severity",
-            line=dict(color="orange", width=3),
-            marker=dict(size=4, color="red"),
+            line={"color": "orange", "width": 3},
+            marker={"size": 4, "color": "red"},
         )
     )
 
@@ -561,7 +596,7 @@ def process_uploaded_file(uploaded_file: Any) -> Optional[str]:
     """
     try:
         return StringIO(uploaded_file.getvalue().decode("utf-8")).read()
-    except UnicodeDecodeError as e:
+    except (UnicodeDecodeError, AttributeError) as e:
         st.error(f"Error reading uploaded file: {str(e)}")
         return None
 
@@ -570,79 +605,239 @@ def clean_and_parse_csv(csv_content: str) -> Optional[pl.DataFrame]:
     """
     Clean and parse CSV content, handling various formats and delimiters.
 
+    Enhanced robust parsing that supports:
+    - Standard comma-separated CSV with dot decimal separator
+    - European format CSV with comma decimal separator (quoted or unquoted)
+    - Semicolon-separated CSV (prioritized for European files)
+    - Tab-separated CSV
+    - Files with extra empty columns
+    - Mixed number formats and malformed data
+    - Automatic column detection and cleaning
+
     Args:
         csv_content: Raw CSV content as string
 
     Returns:
-        Parsed DataFrame or None if parsing failed
+        Parsed DataFrame with columns MD, Inc, Azi or None if parsing failed
     """
-    try:
-        # First, try standard comma-separated format
-        try:
-            df = pl.read_csv(
-                StringIO(csv_content),
-                separator=",",
-                truncate_ragged_lines=True,
-                ignore_errors=True,
-            )
-            # Check if we have the required columns
-            if all(col in df.columns for col in ["MD", "Inc", "Azi"]):
-                return df
-        except pl.exceptions.ComputeError:
-            # Ignore parsing errors for this format
-            pass
+    parsing_errors: List[str] = []
 
-        # Try semicolon-separated format (European style)
+    def safe_numeric_conversion(df: pl.DataFrame, columns: List[str]) -> pl.DataFrame:
+        """Safely convert columns to numeric, handling various formats."""
+        for col in columns:
+            if col in df.columns:
+                try:
+                    # Clean the column: remove quotes, replace comma with dot, strip whitespace
+                    df = df.with_columns(
+                        pl.col(col)
+                        .cast(pl.Utf8)  # Ensure string type first
+                        .str.strip_chars()  # Remove leading/trailing whitespace
+                        .str.strip_chars("\"'")  # Remove quotes
+                        .str.replace(
+                            ",", "."
+                        )  # Replace European decimal comma with dot
+                        .str.replace_all(
+                            r"[^\d\.\-\+]", "", literal=False
+                        )  # Remove non-numeric chars
+                    )
+
+                    # Try to convert to float, handling nulls and empty strings
+                    df = df.with_columns(
+                        pl.col(col).map_elements(
+                            lambda x: None
+                            if (
+                                x is None
+                                or str(x).strip() == ""
+                                or str(x).strip() == "nan"
+                            )
+                            else float(str(x)),
+                            return_dtype=pl.Float64,
+                        )
+                    )
+
+                except (
+                    pl.exceptions.ComputeError,
+                    pl.exceptions.SchemaError,
+                    ValueError,
+                ) as e:
+                    parsing_errors.append(f"Error converting column {col}: {str(e)}")
+                    continue
+        return df
+
+    def detect_and_clean_columns(df: pl.DataFrame) -> Optional[pl.DataFrame]:
+        """Detect MD, Inc, Azi columns and clean the dataframe."""
+        if len(df.columns) < 3:
+            return None
+
+        # Find the first three columns that might contain data
+        data_columns: List[str] = []
+        for col in df.columns:
+            # Check if column contains mostly non-empty data
+            non_null_count = df.select(pl.col(col).is_not_null().sum()).item()
+            if non_null_count > len(df) * 0.1:  # At least 10% non-null data
+                data_columns.append(col)
+            if len(data_columns) == 3:
+                break
+
+        if len(data_columns) < 3:
+            # Fallback: take first 3 columns regardless
+            data_columns = df.columns[:3]
+
+        # Select only the data columns
+        df = df.select(data_columns[:3])
+
+        # Rename columns to standard names
+        df.columns = ["MD", "Inc", "Azi"]
+
+        # Remove rows where all values are null or empty
+        df = df.filter(
+            pl.col("MD").is_not_null()
+            & pl.col("Inc").is_not_null()
+            & pl.col("Azi").is_not_null()
+        )
+
+        return df
+
+    try:
+        # Strategy 1: Try semicolon-separated format (European style) FIRST
         try:
             df = pl.read_csv(
                 StringIO(csv_content),
                 separator=";",
                 truncate_ragged_lines=True,
                 ignore_errors=True,
+                null_values=["", "NULL", "null", "N/A", "n/a", "nan"],
             )
 
-            # Handle European decimal format (comma as decimal separator)
-            # and clean up column names
-            if len(df.columns) >= 3:
-                # Take first 3 columns and rename them
-                df = df.select(df.columns[:3])
-                df.columns = ["MD", "Inc", "Azi"]
+            # Clean and detect columns
+            df = detect_and_clean_columns(df)
+            if df is not None and len(df) > 0:
+                # Convert to numeric
+                df = safe_numeric_conversion(df, ["MD", "Inc", "Azi"])
 
-                # Convert European decimals (comma) to standard format (dot)
-                for col in ["MD", "Inc", "Azi"]:
-                    try:
-                        # Convert to string, replace comma with dot, then to float
-                        df = df.with_columns(
-                            pl.col(col)
-                            .cast(pl.Utf8)
-                            .str.replace(",", ".")
-                            .cast(pl.Float64)
-                        )
-                    except ValueError:
-                        # If conversion fails, try direct casting
-                        df = df.with_columns(pl.col(col).cast(pl.Float64))
+                # Validate that we have some valid numeric data
+                valid_md = df.select(pl.col("MD").is_not_null().sum()).item() > 0
+                valid_inc = df.select(pl.col("Inc").is_not_null().sum()).item() > 0
+                valid_azi = df.select(pl.col("Azi").is_not_null().sum()).item() > 0
+                if valid_md and valid_inc and valid_azi:
+                    return df
 
-                return df
-        except pl.exceptions.ComputeError as e:
-            st.error(f"Error parsing semicolon-separated CSV: {str(e)}")
+        except (pl.exceptions.ComputeError, ValueError) as e:
+            parsing_errors.append(f"Semicolon-separated parsing failed: {str(e)}")
 
-        # Try tab-separated format
+        # Strategy 2: Try comma-separated with European decimal handling
+        try:
+            # Try with explicit schema first
+            try:
+                df = pl.read_csv(
+                    StringIO(csv_content),
+                    separator=",",
+                    schema={"MD (ft)": pl.Utf8, "Inc (°)": pl.Utf8, "Azi (°)": pl.Utf8},
+                    truncate_ragged_lines=True,
+                    null_values=["", "NULL", "null", "N/A", "n/a"],
+                )
+            except (pl.exceptions.ComputeError, pl.exceptions.SchemaError):
+                # Fallback: read without schema
+                df = pl.read_csv(
+                    StringIO(csv_content),
+                    separator=",",
+                    truncate_ragged_lines=True,
+                    null_values=["", "NULL", "null", "N/A", "n/a"],
+                )
+
+            # Clean column names - remove units and special characters
+            new_columns: List[str] = []
+            for col in df.columns:
+                clean_col = col.strip()
+                if any(
+                    keyword in clean_col.upper()
+                    for keyword in ["MD", "DEPTH", "MEASURED"]
+                ):
+                    new_columns.append("MD")
+                elif any(
+                    keyword in clean_col.upper() for keyword in ["INC", "INCLINATION"]
+                ):
+                    new_columns.append("Inc")
+                elif any(
+                    keyword in clean_col.upper() for keyword in ["AZI", "AZIMUTH", "AZ"]
+                ):
+                    new_columns.append("Azi")
+                else:
+                    new_columns.append(clean_col)
+
+            df.columns = new_columns
+
+            # Check if we have the required columns
+            if all(col in df.columns for col in ["MD", "Inc", "Azi"]):
+                df = safe_numeric_conversion(df, ["MD", "Inc", "Azi"])
+
+                # Validate conversion
+                valid_md = df.select(pl.col("MD").is_not_null().sum()).item() > 0
+                valid_inc = df.select(pl.col("Inc").is_not_null().sum()).item() > 0
+                valid_azi = df.select(pl.col("Azi").is_not_null().sum()).item() > 0
+                if valid_md and valid_inc and valid_azi:
+                    return df
+
+        except (pl.exceptions.ComputeError, ValueError) as e:
+            parsing_errors.append(f"Comma-separated parsing failed: {str(e)}")
+
+        # Strategy 3: Try tab-separated format
         try:
             df = pl.read_csv(
                 StringIO(csv_content),
                 separator="\t",
                 truncate_ragged_lines=True,
                 ignore_errors=True,
+                null_values=["", "NULL", "null", "N/A", "n/a"],
             )
-            if all(col in df.columns for col in ["MD", "Inc", "Azi"]):
-                return df
-        except pl.exceptions.ComputeError:
-            pass
+
+            df = detect_and_clean_columns(df)
+            if df is not None and len(df) > 0:
+                df = safe_numeric_conversion(df, ["MD", "Inc", "Azi"])
+
+                valid_md = df.select(pl.col("MD").is_not_null().sum()).item() > 0
+                valid_inc = df.select(pl.col("Inc").is_not_null().sum()).item() > 0
+                valid_azi = df.select(pl.col("Azi").is_not_null().sum()).item() > 0
+                if valid_md and valid_inc and valid_azi:
+                    return df
+
+        except (pl.exceptions.ComputeError, ValueError) as e:
+            parsing_errors.append(f"Tab-separated parsing failed: {str(e)}")
+
+        # If all strategies failed, show detailed error information
+        st.error("❌ Could not parse CSV file. Please check the format.")
+
+        with st.expander("🔍 Detailed parsing errors", expanded=False):
+            st.write("**Attempted parsing strategies:**")
+            for i, error in enumerate(parsing_errors, 1):
+                st.write(f"{i}. {error}")
+
+            st.write("\n**CSV content preview:**")
+            lines = csv_content.split("\n")[:5]
+            for i, line in enumerate(lines):
+                st.code(f"Line {i+1}: {line}")
+
+        st.info("""
+        **Expected format:** CSV with columns MD, Inc, Azi (or similar)
+
+        **Supported formats:**
+        - Standard: `MD,Inc,Azi` with dot decimal separator
+        - European: `MD (ft),Inc (°),Azi (°)` with comma decimal separator
+        - Semicolon: `MD;Inc;Azi` with comma decimal separator
+        - Tab-separated with any decimal format
+
+        **Example of valid European format:**
+        ```
+        MD (ft),Inc (°),Azi (°)
+        0,0,0
+        "23,3",0,"69,97"
+        ```
+        """)
 
         return None
 
-    except pl.exceptions.ComputeError as e:
-        st.error(f"Error processing CSV: {str(e)}")
+    except (pl.exceptions.ComputeError, ValueError, UnicodeDecodeError) as e:
+        st.error(f"❌ Unexpected error processing CSV: {str(e)}")
         return None
 
 
@@ -827,10 +1022,6 @@ def main() -> None:
                 # Add interpolation tool
                 display_interpolation_tool(df_results)
 
-            # Calculate trajectory parameters
-            with st.spinner("Calculating trajectory parameters..."):
-                df_results: pl.DataFrame = calculate_trajectory_parameters(df_input)
-
             # Display results in tabs
             tab1, tab2, tab3, tab4 = st.tabs(
                 ["📈 3D Trajectory", "📊 Results Table", "📉 Charts", "💾 Export"]
@@ -886,11 +1077,7 @@ def main() -> None:
                     "💡 **Tip**: Use the downloaded CSV for further analysis or import into other software"
                 )
 
-        except (
-            pl.exceptions.ComputeError,
-            ValueError,
-            KeyError,
-        ) as e:
+        except (pl.exceptions.ComputeError, ValueError, AttributeError, TypeError) as e:
             st.error(f"❌ Error processing data: {str(e)}")
             st.info("Please ensure your CSV has columns: MD, Inc, Azi (or equivalent)")
             st.info(
