@@ -408,8 +408,87 @@ def process_uploaded_file(uploaded_file: Any) -> Optional[str]:
     """
     try:
         return StringIO(uploaded_file.getvalue().decode("utf-8")).read()
-    except (UnicodeDecodeError, AttributeError) as e:
+    except (AttributeError, UnicodeDecodeError) as e:
         st.error(f"Error reading uploaded file: {str(e)}")
+        return None
+
+
+def clean_and_parse_csv(csv_content: str) -> Optional[pl.DataFrame]:
+    """
+    Clean and parse CSV content, handling various formats and delimiters.
+
+    Args:
+        csv_content: Raw CSV content as string
+
+    Returns:
+        Parsed DataFrame or None if parsing failed
+    """
+    try:
+        # First, try standard comma-separated format
+        try:
+            df = pl.read_csv(
+                StringIO(csv_content),
+                separator=",",
+                truncate_ragged_lines=True,
+                ignore_errors=True,
+            )
+            # Check if we have the required columns
+            if all(col in df.columns for col in ["MD", "Inc", "Azi"]):
+                return df
+        except (pl.ComputeError, pl.PolarsError, ValueError):
+            pass
+
+        # Try semicolon-separated format (European style)
+        try:
+            df = pl.read_csv(
+                StringIO(csv_content),
+                separator=";",
+                truncate_ragged_lines=True,
+                ignore_errors=True,
+            )
+
+            # Handle European decimal format (comma as decimal separator)
+            # and clean up column names
+            if len(df.columns) >= 3:
+                # Take first 3 columns and rename them
+                df = df.select(df.columns[:3])
+                df.columns = ["MD", "Inc", "Azi"]
+
+                # Convert European decimals (comma) to standard format (dot)
+                for col in ["MD", "Inc", "Azi"]:
+                    try:
+                        # Convert to string, replace comma with dot, then to float
+                        df = df.with_columns(
+                            pl.col(col)
+                            .cast(pl.Utf8)
+                            .str.replace(",", ".")
+                            .cast(pl.Float64)
+                        )
+                    except (pl.ComputeError, pl.PolarsError, ValueError):
+                        # If conversion fails, try direct casting
+                        df = df.with_columns(pl.col(col).cast(pl.Float64))
+
+                return df
+        except (pl.ComputeError, pl.PolarsError) as e:
+            st.error(f"Error parsing semicolon-separated CSV: {str(e)}")
+
+        # Try tab-separated format
+        try:
+            df = pl.read_csv(
+                StringIO(csv_content),
+                separator="\t",
+                truncate_ragged_lines=True,
+                ignore_errors=True,
+            )
+            if all(col in df.columns for col in ["MD", "Inc", "Azi"]):
+                return df
+        except (pl.ComputeError, pl.PolarsError, ValueError):
+            pass
+
+        return None
+
+    except (pl.ComputeError, pl.PolarsError, ValueError) as e:
+        st.error(f"Error processing CSV: {str(e)}")
         return None
 
 
@@ -481,7 +560,7 @@ def main() -> None:
         uploaded_file = st.file_uploader(
             "Upload CSV file",
             type=["csv"],
-            help="CSV should contain columns: MD (Measured Depth), Inc (Inclination), Azi (Azimuth)",
+            help="CSV with columns: MD, Inc, Azi. Supports comma, semicolon, or tab separators. European decimal format (comma) supported.",
         )
 
         if uploaded_file is not None:
@@ -492,10 +571,17 @@ def main() -> None:
     # Process data if available
     if hasattr(st.session_state, "uploaded_data"):
         try:
-            # Read CSV data
-            df_input: pl.DataFrame = pl.read_csv(
-                StringIO(st.session_state.uploaded_data)
+            # Clean and parse CSV data
+            df_input: Optional[pl.DataFrame] = clean_and_parse_csv(
+                st.session_state.uploaded_data
             )
+
+            if df_input is None:
+                st.error("❌ Could not parse CSV file. Please check the format.")
+                st.info(
+                    "Supported formats: comma-separated, semicolon-separated, or tab-separated CSV files with columns MD, Inc, Azi"
+                )
+                return
 
             st.success(f"✅ Loaded {len(df_input)} survey points")
 
@@ -562,9 +648,12 @@ def main() -> None:
                     "💡 **Tip**: Use the downloaded CSV for further analysis or import into other software"
                 )
 
-        except Exception as e:
+        except (pl.ComputeError, pl.PolarsError, ValueError, UnicodeDecodeError) as e:
             st.error(f"❌ Error processing data: {str(e)}")
-            st.info("Please ensure your CSV has columns: MD, Inc, Azi")
+            st.info("Please ensure your CSV has columns: MD, Inc, Azi (or equivalent)")
+            st.info(
+                "Supported formats: comma-separated, semicolon-separated, or tab-separated"
+            )
 
     else:
         st.info("👆 Upload a CSV file or click 'Load Sample Data' to get started")
