@@ -37,6 +37,159 @@ def degrees_to_radians(degrees: float) -> float:
     return degrees * math.pi / 180
 
 
+def interpolate_survey_point(
+    df_results: pl.DataFrame, target_md: float
+) -> Optional[Dict[str, float]]:
+    """
+    Interpolate survey point at target MD using minimum curvature method.
+
+    Args:
+        df_results: DataFrame with calculated trajectory parameters
+        target_md: Target measured depth for interpolation
+
+    Returns:
+        Dictionary with interpolated survey parameters or None if target_md is out of range
+    """
+    md_values = df_results["MD"].to_list()
+
+    # Check if target MD is within range
+    if target_md < min(md_values) or target_md > max(md_values):
+        return None
+
+    # If target MD exactly matches an existing survey point, return that point
+    for i, md in enumerate(md_values):
+        if abs(md - target_md) < 0.1:  # Within 0.1 ft tolerance
+            return {
+                "MD": float(df_results["MD"][i]),
+                "Inc": float(df_results["Inc"][i]),
+                "Azi": float(df_results["Azi"][i]),
+                "TVD": float(df_results["TVD"][i]),
+                "North": float(df_results["North"][i]),
+                "East": float(df_results["East"][i]),
+                "DLS": float(df_results["DLS"][i]),
+                "DDI": float(df_results["DDI"][i]),
+            }
+
+    # Find bracketing survey stations
+    upper_idx = None
+    for i, md in enumerate(md_values):
+        if md > target_md:
+            upper_idx = i
+            break
+
+    if upper_idx is None or upper_idx == 0:
+        return None
+
+    lower_idx = upper_idx - 1
+
+    # Get bracketing survey data
+    md1, md2 = md_values[lower_idx], md_values[upper_idx]
+    inc1, inc2 = (
+        float(df_results["Inc"][lower_idx]),
+        float(df_results["Inc"][upper_idx]),
+    )
+    azi1, azi2 = (
+        float(df_results["Azi"][lower_idx]),
+        float(df_results["Azi"][upper_idx]),
+    )
+
+    # Previous cumulative values
+    tvd1 = float(df_results["TVD"][lower_idx])
+    north1 = float(df_results["North"][lower_idx])
+    east1 = float(df_results["East"][lower_idx])
+
+    # Calculate interpolation factor
+    total_course = md2 - md1
+    target_course = target_md - md1
+    factor = target_course / total_course
+
+    # Linear interpolation for inclination and azimuth
+    target_inc = inc1 + (inc2 - inc1) * factor
+    target_azi = azi1 + (azi2 - azi1) * factor
+
+    # Handle azimuth wrap-around (e.g., 350° to 10°)
+    azi_diff = azi2 - azi1
+    if azi_diff > 180:
+        azi_diff -= 360
+    elif azi_diff < -180:
+        azi_diff += 360
+    target_azi = azi1 + azi_diff * factor
+    if target_azi < 0:
+        target_azi += 360
+    elif target_azi >= 360:
+        target_azi -= 360
+
+    # Apply minimum curvature method for position calculation
+    # Convert to radians
+    inc1_rad = degrees_to_radians(inc1)
+    target_inc_rad = degrees_to_radians(target_inc)
+    azi1_rad = degrees_to_radians(azi1)
+    target_azi_rad = degrees_to_radians(target_azi)
+
+    # Calculate dogleg angle
+    cos_beta = math.cos(target_inc_rad - inc1_rad) - math.sin(inc1_rad) * math.sin(
+        target_inc_rad
+    ) * (1 - math.cos(target_azi_rad - azi1_rad))
+
+    cos_beta = max(-1.0, min(1.0, cos_beta))
+    beta = math.acos(cos_beta)
+
+    # Calculate ratio factor
+    if abs(beta) < 1e-10:
+        rf = 1.0
+    else:
+        rf = (2 / beta) * math.tan(beta / 2)
+
+    # Calculate incremental displacements
+    delta_e = (
+        (target_course / 2)
+        * (
+            math.sin(inc1_rad) * math.sin(azi1_rad)
+            + math.sin(target_inc_rad) * math.sin(target_azi_rad)
+        )
+        * rf
+    )
+
+    delta_n = (
+        (target_course / 2)
+        * (
+            math.sin(inc1_rad) * math.cos(azi1_rad)
+            + math.sin(target_inc_rad) * math.cos(target_azi_rad)
+        )
+        * rf
+    )
+
+    delta_v = (target_course / 2) * (math.cos(inc1_rad) + math.cos(target_inc_rad)) * rf
+
+    # Calculate interpolated position
+    target_tvd = tvd1 + delta_v
+    target_north = north1 + delta_n
+    target_east = east1 + delta_e
+
+    # Calculate DLS for this segment
+    target_dls = (
+        (beta * 180 / math.pi) / target_course * 100 if target_course > 0 else 0.0
+    )
+
+    # Simplified DDI calculation (approximate)
+    vsec = math.sqrt(target_east**2 + target_north**2)
+    if target_tvd > 0:
+        target_ddi = math.log10((vsec * target_md) / target_tvd) if vsec > 0 else 0.0
+    else:
+        target_ddi = 0.0
+
+    return {
+        "MD": target_md,
+        "Inc": target_inc,
+        "Azi": target_azi,
+        "TVD": target_tvd,
+        "North": target_north,
+        "East": target_east,
+        "DLS": target_dls,
+        "DDI": target_ddi,
+    }
+
+
 def calculate_trajectory_parameters(df: pl.DataFrame) -> pl.DataFrame:
     """
     Calculate trajectory parameters using minimum curvature method.
@@ -326,14 +479,14 @@ def create_ddi_plot(df: pl.DataFrame) -> Figure:
             x=df["MD"].to_list(),
             y=df["DDI"].to_list(),
             mode="lines+markers",
-            name="Drilling Difficulty Index",
-            line={"color": "purple", "width": 3},
-            marker={"size": 4, "color": "red"},
+            name="Dogleg Deviation Index",
+            line=dict(color="purple", width=3),
+            marker=dict(size=4, color="red"),
         )
     )
 
     fig.update_layout(
-        title="DDI (Drilling Difficulty Index) vs Measured Depth",
+        title="DDI (Dogleg Deviation Index) vs Measured Depth",
         xaxis_title="Measured Depth (ft)",
         yaxis_title="DDI",
         width=400,
@@ -408,7 +561,7 @@ def process_uploaded_file(uploaded_file: Any) -> Optional[str]:
     """
     try:
         return StringIO(uploaded_file.getvalue().decode("utf-8")).read()
-    except (AttributeError, UnicodeDecodeError) as e:
+    except UnicodeDecodeError as e:
         st.error(f"Error reading uploaded file: {str(e)}")
         return None
 
@@ -435,7 +588,8 @@ def clean_and_parse_csv(csv_content: str) -> Optional[pl.DataFrame]:
             # Check if we have the required columns
             if all(col in df.columns for col in ["MD", "Inc", "Azi"]):
                 return df
-        except (pl.ComputeError, pl.PolarsError, ValueError):
+        except pl.errors.ComputeError:
+            # Ignore parsing errors for this format
             pass
 
         # Try semicolon-separated format (European style)
@@ -464,12 +618,12 @@ def clean_and_parse_csv(csv_content: str) -> Optional[pl.DataFrame]:
                             .str.replace(",", ".")
                             .cast(pl.Float64)
                         )
-                    except (pl.ComputeError, pl.PolarsError, ValueError):
+                    except ValueError:
                         # If conversion fails, try direct casting
                         df = df.with_columns(pl.col(col).cast(pl.Float64))
 
                 return df
-        except (pl.ComputeError, pl.PolarsError) as e:
+        except pl.errors.ComputeError as e:
             st.error(f"Error parsing semicolon-separated CSV: {str(e)}")
 
         # Try tab-separated format
@@ -482,14 +636,91 @@ def clean_and_parse_csv(csv_content: str) -> Optional[pl.DataFrame]:
             )
             if all(col in df.columns for col in ["MD", "Inc", "Azi"]):
                 return df
-        except (pl.ComputeError, pl.PolarsError, ValueError):
+        except pl.errors.ComputeError:
             pass
 
         return None
 
-    except (pl.ComputeError, pl.PolarsError, ValueError) as e:
+    except pl.errors.ComputeError as e:
         st.error(f"Error processing CSV: {str(e)}")
         return None
+
+
+def display_interpolation_tool(df_results: pl.DataFrame) -> None:
+    """
+    Display interpolation tool UI and handle interpolation requests.
+
+    Args:
+        df_results: DataFrame with calculated trajectory parameters
+    """
+    st.subheader("🔧 Survey Point Interpolation")
+    st.markdown(
+        "Calculate survey parameters at any measured depth using minimum curvature method"
+    )
+
+    # Get MD range for input validation
+    md_min = float(df_results["MD"].min())  # type: ignore
+    md_max = float(df_results["MD"].max())  # type: ignore
+
+    col1, col2 = st.columns([2, 1])
+
+    with col1:
+        target_md = st.number_input(
+            "Target Measured Depth (ft)",
+            min_value=md_min,
+            max_value=md_max,
+            value=(md_min + md_max) / 2,
+            step=10.0,
+            help=f"Enter MD between {md_min:.1f} and {md_max:.1f} ft",
+            key="interpolation_target_md",
+        )
+
+    with col2:
+        if st.button("📍 Interpolate", type="primary", key="interpolate_button"):
+            # Perform interpolation
+            result = interpolate_survey_point(df_results, target_md)
+
+            if result:
+                st.session_state.interpolation_result = result
+                st.session_state.show_interpolated_point = True
+            else:
+                st.error(
+                    "❌ Could not interpolate at this MD. Check if MD is within survey range."
+                )
+
+    # Display interpolation results
+    if (
+        hasattr(st.session_state, "interpolation_result")
+        and st.session_state.interpolation_result
+    ):
+        result = st.session_state.interpolation_result
+
+        st.success(f"✅ Interpolated survey point at MD {result['MD']:.1f} ft")
+
+        # Display results in a nice format
+        col1, col2, col3, col4 = st.columns(4)
+
+        with col1:
+            st.metric("Inclination", f"{result['Inc']:.2f}°")
+            st.metric("TVD", f"{result['TVD']:.1f} ft")
+
+        with col2:
+            st.metric("Azimuth", f"{result['Azi']:.2f}°")
+            st.metric("North", f"{result['North']:.1f} ft")
+
+        with col3:
+            st.metric("DLS", f"{result['DLS']:.2f}°/100ft")
+            st.metric("East", f"{result['East']:.1f} ft")
+
+        with col4:
+            st.metric("DDI", f"{result['DDI']:.3f}")
+            closure_dist = math.sqrt(result["North"] ** 2 + result["East"] ** 2)
+            st.metric("Closure", f"{closure_dist:.1f} ft")
+
+        # Option to add to visualization
+        if st.button("📊 Add to 3D Plot", key="add_to_plot_button"):
+            st.session_state.show_interpolated_point = True
+            st.rerun()
 
 
 def display_key_metrics(df_results: pl.DataFrame) -> None:
@@ -585,9 +816,16 @@ def main() -> None:
 
             st.success(f"✅ Loaded {len(df_input)} survey points")
 
-            # Display input data
+            # Calculate trajectory parameters
+            with st.spinner("Calculating trajectory parameters..."):
+                df_results: pl.DataFrame = calculate_trajectory_parameters(df_input)
+
+            # Display input data with interpolation tool
             with st.expander("📊 Input Survey Data", expanded=False):
                 st.dataframe(df_input.to_pandas(), use_container_width=True)
+
+                # Add interpolation tool
+                display_interpolation_tool(df_results)
 
             # Calculate trajectory parameters
             with st.spinner("Calculating trajectory parameters..."):
@@ -648,7 +886,11 @@ def main() -> None:
                     "💡 **Tip**: Use the downloaded CSV for further analysis or import into other software"
                 )
 
-        except (pl.ComputeError, pl.PolarsError, ValueError, UnicodeDecodeError) as e:
+        except (
+            pl.errors.ComputeError,
+            ValueError,
+            KeyError,
+        ) as e:
             st.error(f"❌ Error processing data: {str(e)}")
             st.info("Please ensure your CSV has columns: MD, Inc, Azi (or equivalent)")
             st.info(
