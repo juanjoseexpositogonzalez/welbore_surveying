@@ -2,8 +2,8 @@
 
 A comprehensive web-based application for analyzing wellbore trajectory data using industry-standard minimum curvature method calculations. Built with Streamlit and Polars for high-performance data processing and interactive visualizations.
 
-![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
-![Streamlit](https://img.shields.io/badge/streamlit-v1.28+-red.svg)
+![Python](https://img.shields.io/badge/python-v3.13+-blue.svg)
+![Streamlit](https://img.shields.io/badge/streamlit-v1.48+-red.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
 ## 📋 Table of Contents
@@ -27,21 +27,27 @@ A comprehensive web-based application for analyzing wellbore trajectory data usi
 
 The Survey Data Trajectory Calculator is designed to bridge the gap between expensive enterprise drilling software (costing $50K+ annually) and basic spreadsheet tools. It provides professional-grade trajectory analysis capabilities in an intuitive, web-based interface accessible to drilling engineers, consultants, and students.
 
+This application implements industry-standard minimum curvature calculations with enhanced DDI (Dogleg Deviation Index) analysis using corrected mathematical formulas that distinguish between different trajectory complexity measures for improved accuracy.
+
 ### Key Benefits
 - **Cost-effective**: Free alternative to expensive drilling software
 - **Modern interface**: Web-based, no installation required
 - **Industry standard**: Uses minimum curvature method (ISCWSA approved)
-- **Comprehensive analysis**: Calculate 13+ trajectory parameters
-- **Interactive visualizations**: 3D plots and multiple view angles
+- **Enhanced accuracy**: Corrected DDI and tortuosity calculations using T parameter
+- **Comprehensive analysis**: Calculate 13+ trajectory parameters including AHD and Vsec
+- **Interactive visualizations**: 3D plots, dual y-axis DDI/Tortuosity analysis
+- **Format flexibility**: Supports European CSV formats (semicolon, comma decimals)
 - **Export capabilities**: Results downloadable as CSV
 
 ## ✨ Features
 
 ### Core Functionality
 - ✅ **CSV Data Import**: Drag-and-drop file upload with validation
+- ✅ **European CSV Support**: Automatic detection of semicolon delimiters and comma decimals
 - ✅ **Minimum Curvature Calculations**: Industry-standard trajectory analysis
 - ✅ **Real-time Processing**: Instant calculations and visualizations
 - ✅ **Multiple Views**: 3D, plan view, vertical section, and parameter plots
+- ✅ **Enhanced DDI Analysis**: Dual y-axis plots with DDI and Tortuosity
 - ✅ **Export Results**: Download calculated parameters as CSV
 - ✅ **Sample Data**: Built-in test data for immediate evaluation
 
@@ -55,16 +61,19 @@ The Survey Data Trajectory Calculator is designed to bridge the gap between expe
 | **DDI** | Dogleg Deviation Index | dimensionless |
 | **Build Rate** | Inclination change rate | °/100ft |
 | **Turn Rate** | Azimuth change rate | °/100ft |
-| **Vsec** | Horizontal displacement | ft |
+| **Vsec** | Horizontal displacement with azimuth correction | ft |
+| **AHD** | Actual Horizontal Displacement (cumulative) | ft |
 | **Closure Distance** | Total horizontal offset | ft |
 | **Closure Azimuth** | Direction to target | degrees |
+| **Tortuosity** | Cumulative trajectory complexity measure | dimensionless |
+| **T Parameter** | Cumulative angular deviation for DDI calculation | degrees |
 
 ### Visualizations
 - 🎯 **3D Trajectory Plot**: Interactive wellbore path visualization
 - 📊 **Plan View**: Top-down horizontal projection
 - 📈 **Vertical Section**: Side view with TVD
 - 📉 **DLS vs MD**: Dogleg severity analysis
-- 🟣 **DDI vs MD**: Trajectory complexity assessment
+- 🟣 **DDI & Tortuosity vs MD**: Dual y-axis plot for trajectory complexity assessment
 
 ## 🚀 Installation
 
@@ -76,26 +85,27 @@ The Survey Data Trajectory Calculator is designed to bridge the gap between expe
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/trajectory-calculator.git
-cd trajectory-calculator
+git clone https://github.com/juanjoseexpositogonzalez/wellbore-surveying.git
+cd wellbore-surveying
 
-# Create virtual environment (recommended)
+# Using uv (recommended for fastest setup)
+uv sync
+uv run poe gui
+
+# OR using traditional pip
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Run the application
 streamlit run trajectory_app.py
 ```
 
 ### Dependencies
 
 ```txt
-streamlit>=1.28.0
-polars>=0.20.0
-plotly>=5.15.0
+streamlit>=1.48.0
+polars>=1.32.0
+plotly>=6.3.0
+numpy>=2.3.0
 ```
 
 ## 💻 Usage
@@ -118,8 +128,8 @@ The app will open in your default browser at `http://localhost:8501`
 
 ### 3. Analyze Results
 - **3D Trajectory**: Interactive 3D wellbore visualization
-- **Results Table**: Comprehensive calculated parameters
-- **Charts**: Multiple analytical views (plan, vertical, DLS, DDI)
+- **Results Table**: Comprehensive calculated parameters including Tortuosity and T parameter
+- **Charts**: Multiple analytical views (plan, vertical, DLS, DDI & Tortuosity dual-axis)
 - **Export**: Download results as CSV for further analysis
 
 ### 4. Sample Data Format
@@ -228,7 +238,14 @@ Turn_Rate = (azi2 - azi1) × (100/ΔMD)   # degrees per 100ft
 
 **Horizontal Displacement (Vsec)**
 ```python
-Vsec = √(East² + North²)
+# Vsec includes azimuth increment correction
+azi_increment = azi2 - azi1
+Vsec = AHD * cos(azi_increment * π/180)
+```
+
+**Actual Horizontal Displacement (AHD)**
+```python
+AHD = √(East² + North²)  # Cumulative horizontal displacement
 ```
 
 **Closure Parameters**
@@ -239,15 +256,15 @@ Closure_Azimuth = arctan2(East, North) × (180/π)
 
 **Dogleg Deviation Index (DDI)**
 ```python
-# Tortuosity calculation
-Tortuosity = Σ(DLS) / n_intervals
+# Tortuosity calculation (corrected formula)
+Tortuosity = Σ(|ΔMD × ΔDLS|) / 100
 
-# Actual Horizontal Displacement
-AHD = √(ΔE² + ΔN²)
+# T parameter for DDI calculation
+T = Σ(β_degrees)  # Cumulative sum of dogleg angles in degrees
 
-# DDI calculation
-if TVD > 0 and AHD > 0 and Tortuosity > 0:
-    DDI = log₁₀((AHD × MD × Tortuosity) / TVD)
+# DDI calculation using T parameter
+if TVD > 0 and AHD > 0 and T > 0:
+    DDI = log₁₀((AHD × MD × T) / TVD)
 else:
     DDI = 0
 ```
@@ -272,8 +289,11 @@ else:
 - **No gaps**: Consecutive survey points without missing data
 - **Realistic values**: Inclination 0-90° for most applications
 - **Consistent units**: All measurements in the same unit system
+- **Format flexibility**: Supports comma-separated, semicolon-separated (European), and tab-separated files
 
 ### CSV Format Example
+
+**Standard Format (Comma-separated):**
 ```csv
 MD,Inc,Azi
 0.0,0.0,0.0
@@ -282,6 +302,18 @@ MD,Inc,Azi
 1500.0,25.4,55.1
 2000.0,30.8,60.0
 ```
+
+**European Format (Semicolon-separated with comma decimals):**
+```csv
+MD;Inc;Azi
+0,0;0,0;0,0
+500,0;2,1;45,3
+1000,0;15,7;50,2
+1500,0;25,4;55,1
+2000,0;30,8;60,0
+```
+
+The application automatically detects and handles both formats, along with tab-separated files.
 
 ## 📈 Output Parameters
 
@@ -309,15 +341,25 @@ MD,Inc,Azi
 
 ### Secondary Parameters
 
-**Build/Turn Rates**
-- Specific rates of inclination/azimuth change
-- Important for steering tool capabilities
-- Planning parameter for directional drilling
+**AHD (Actual Horizontal Displacement)**
+- Cumulative horizontal distance from surface location
+- Essential for anti-collision analysis
+- Used in DDI calculations
 
-**Closure Distance/Azimuth**
-- Direct distance and direction to target
-- Navigation reference for drillers
-- Quality control for well placement
+**Vsec (Horizontal Displacement with Azimuth Correction)**
+- Azimuth-corrected horizontal displacement
+- Accounts for azimuth increment changes
+- Different from simple cumulative displacement
+
+**Tortuosity**
+- Quantifies overall trajectory complexity using |ΔMD × ΔDLS| accumulation
+- More accurate than simple DLS averaging
+- Critical component for DDI calculation
+
+**T Parameter**
+- Cumulative sum of dogleg angles in degrees
+- Required for accurate DDI calculation
+- Replaces tortuosity in DDI formula for better accuracy
 
 ## 🎨 Visualizations
 
@@ -348,7 +390,8 @@ MD,Inc,Azi
 - **Equipment limitation checking**
 - **Drilling performance assessment**
 
-### 5. DDI Trend
+### 5. DDI & Tortuosity Trend
+- **Dual y-axis visualization**
 - **Complexity assessment**
 - **Comparative analysis tool**
 - **Drilling difficulty prediction**
