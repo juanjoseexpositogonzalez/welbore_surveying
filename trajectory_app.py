@@ -499,34 +499,69 @@ def create_vertical_section_plot(df: pl.DataFrame) -> Figure:
 
 def create_ddi_plot(df: pl.DataFrame) -> Figure:
     """
-    Create DDI vs MD plot.
+    Create DDI and Tortuosity vs MD plot with dual y-axes.
 
     Args:
         df: DataFrame with trajectory parameters
 
     Returns:
-        Plotly 2D scatter plot figure
+        Plotly 2D scatter plot figure with dual y-axes
     """
     fig = go.Figure()
 
+    # Add DDI trace (primary y-axis)
     fig.add_trace(
         go.Scatter(
             x=df["MD"].to_list(),
             y=df["DDI"].to_list(),
             mode="lines+markers",
-            name="Drilling Difficulty Index",
+            name="DDI",
             line={"color": "purple", "width": 3},
-            marker={"size": 4, "color": "red"},
+            marker={"size": 4, "color": "purple"},
+            yaxis="y",
         )
     )
 
+    # Add Tortuosity trace (secondary y-axis)
+    fig.add_trace(
+        go.Scatter(
+            x=df["MD"].to_list(),
+            y=df["Tortuosity"].to_list(),
+            mode="lines+markers",
+            name="Tortuosity",
+            line={"color": "orange", "width": 3},
+            marker={"size": 4, "color": "orange"},
+            yaxis="y2",
+        )
+    )
+
+    # Update layout with dual y-axes
     fig.update_layout(
-        title="DDI (Drilling Difficulty Index) vs Measured Depth",
+        title="DDI & Tortuosity vs Measured Depth",
         xaxis_title="Measured Depth (ft)",
-        yaxis_title="DDI",
+        yaxis=dict(
+            title="DDI",
+            titlefont=dict(color="purple"),
+            tickfont=dict(color="purple"),
+            side="left",
+        ),
+        yaxis2=dict(
+            title="Tortuosity",
+            titlefont=dict(color="orange"),
+            tickfont=dict(color="orange"),
+            overlaying="y",
+            side="right",
+        ),
         width=400,
         height=300,
-        showlegend=False,
+        showlegend=True,
+        legend=dict(
+            x=0.02,
+            y=0.98,
+            bgcolor="rgba(255,255,255,0.8)",
+            bordercolor="Black",
+            borderwidth=1,
+        ),
     )
 
     return fig
