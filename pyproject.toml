@@ -1,0 +1,23 @@
+[project]
+name = "wellbore-surveying"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "numpy>=2.3.2",
+    "plotly>=6.3.0",
+    "polars>=1.32.3",
+    "streamlit>=1.48.1",
+]
+
+[tool.poe.tasks]
+test         = "pytest -vv --cov=src --cov-report=term-missing --cov-report=html"
+lint         = "ruff check ."
+format       = "ruff format ."
+format-check = "ruff check . --fix"
+type-check   = "ruff typecheck ."
+gui          = "streamlit run trajectory_app.py --server.fileWatcherType watchdog --server.runOnSave true"
+
+[tool.setuptools]
+package-dir = {"" = "."}

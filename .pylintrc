@@ -1,0 +1,16 @@
+[MASTER]
+disable=
+    C0114, # missing-module-docstring
+    C0115, # missing-class-docstring
+    C0116, # missing-function-docstring
+    W0621, # redefined-outer-name
+    E0110, # no-member
+    W0613, # unused-argument
+    W0212, # dangerous-default-value
+    R0903, # too-few-public-methods
+    E1101, # FieldInfo has no split member
+    E1136, # unsubscriptable-object
+    R0911, # too-many-return-statements
+
+[FORMAT]
+max-line-length=500

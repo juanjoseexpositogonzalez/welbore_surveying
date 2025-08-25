@@ -1,0 +1,1084 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "weka.core.jvm",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "weka.core.jvm",
+        "description": "weka.core.jvm",
+        "detail": "weka.core.jvm",
+        "documentation": {}
+    },
+    {
+        "label": "Classifier",
+        "importPath": "weka.classifiers",
+        "description": "weka.classifiers",
+        "isExtraImport": true,
+        "detail": "weka.classifiers",
+        "documentation": {}
+    },
+    {
+        "label": "Evaluation",
+        "importPath": "weka.classifiers",
+        "description": "weka.classifiers",
+        "isExtraImport": true,
+        "detail": "weka.classifiers",
+        "documentation": {}
+    },
+    {
+        "label": "PredictionOutput",
+        "importPath": "weka.classifiers",
+        "description": "weka.classifiers",
+        "isExtraImport": true,
+        "detail": "weka.classifiers",
+        "documentation": {}
+    },
+    {
+        "label": "Classifier",
+        "importPath": "weka.classifiers",
+        "description": "weka.classifiers",
+        "isExtraImport": true,
+        "detail": "weka.classifiers",
+        "documentation": {}
+    },
+    {
+        "label": "Loader",
+        "importPath": "weka.core.converters",
+        "description": "weka.core.converters",
+        "isExtraImport": true,
+        "detail": "weka.core.converters",
+        "documentation": {}
+    },
+    {
+        "label": "Loader",
+        "importPath": "weka.core.converters",
+        "description": "weka.core.converters",
+        "isExtraImport": true,
+        "detail": "weka.core.converters",
+        "documentation": {}
+    },
+    {
+        "label": "Filter",
+        "importPath": "weka.filters",
+        "description": "weka.filters",
+        "isExtraImport": true,
+        "detail": "weka.filters",
+        "documentation": {}
+    },
+    {
+        "label": "Filter",
+        "importPath": "weka.filters",
+        "description": "weka.filters",
+        "isExtraImport": true,
+        "detail": "weka.filters",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "remove_features_by_pos",
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "isExtraImport": true,
+        "detail": "weka_process",
+        "documentation": {}
+    },
+    {
+        "label": "run_attribute_selection",
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "isExtraImport": true,
+        "detail": "weka_process",
+        "documentation": {}
+    },
+    {
+        "label": "run_weka_jrip",
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "isExtraImport": true,
+        "detail": "weka_process",
+        "documentation": {}
+    },
+    {
+        "label": "SeedMode",
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "isExtraImport": true,
+        "detail": "weka_process",
+        "documentation": {}
+    },
+    {
+        "label": "process_weka",
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "isExtraImport": true,
+        "detail": "weka_process",
+        "documentation": {}
+    },
+    {
+        "label": "remove_features_by_pos",
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "isExtraImport": true,
+        "detail": "weka_process",
+        "documentation": {}
+    },
+    {
+        "label": "run_attribute_selection",
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "isExtraImport": true,
+        "detail": "weka_process",
+        "documentation": {}
+    },
+    {
+        "label": "run_weka_jrip",
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "isExtraImport": true,
+        "detail": "weka_process",
+        "documentation": {}
+    },
+    {
+        "label": "SeedMode",
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "isExtraImport": true,
+        "detail": "weka_process",
+        "documentation": {}
+    },
+    {
+        "label": "Direction",
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "isExtraImport": true,
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "remove_market_information_from_extraction",
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "isExtraImport": true,
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "extract_market_information",
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "isExtraImport": true,
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "rules_to_easy_language",
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "isExtraImport": true,
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "run_multiple_ripper_iterations",
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "isExtraImport": true,
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "select_features_from",
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "isExtraImport": true,
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "transform_label_to_numeric",
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "isExtraImport": true,
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "# type: ignore\r\n    get_dataframe_with_new_target",
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "isExtraImport": true,
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "# type: ignore\r\n    get_correlation_with_label",
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "isExtraImport": true,
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "create_dataframe_for_rule_extract",
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "isExtraImport": true,
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "write_rules_to_file",
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "isExtraImport": true,
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "extract_market_information",
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "isExtraImport": true,
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "remove_market_information_from_extraction",
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "isExtraImport": true,
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "extract_rules_from_all",
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "isExtraImport": true,
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "subprocess",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "subprocess",
+        "description": "subprocess",
+        "detail": "subprocess",
+        "documentation": {}
+    },
+    {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
+        "label": "sample",
+        "importPath": "random",
+        "description": "random",
+        "isExtraImport": true,
+        "detail": "random",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "wittgenstein",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "wittgenstein",
+        "description": "wittgenstein",
+        "detail": "wittgenstein",
+        "documentation": {}
+    },
+    {
+        "label": "join_market_information",
+        "importPath": "process_df",
+        "description": "process_df",
+        "isExtraImport": true,
+        "detail": "process_df",
+        "documentation": {}
+    },
+    {
+        "label": "determine_if_rules_validate",
+        "importPath": "metrics",
+        "description": "metrics",
+        "isExtraImport": true,
+        "detail": "metrics",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_metrics",
+        "importPath": "metrics",
+        "description": "metrics",
+        "isExtraImport": true,
+        "detail": "metrics",
+        "documentation": {}
+    },
+    {
+        "label": "print_main_rules",
+        "importPath": "metrics",
+        "description": "metrics",
+        "isExtraImport": true,
+        "detail": "metrics",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "remove_features_with_low_corr",
+        "importPath": "jrip_rules",
+        "description": "jrip_rules",
+        "isExtraImport": true,
+        "detail": "jrip_rules",
+        "documentation": {}
+    },
+    {
+        "label": "rules_to_easy_language",
+        "importPath": "rules_parser",
+        "description": "rules_parser",
+        "isExtraImport": true,
+        "detail": "rules_parser",
+        "documentation": {}
+    },
+    {
+        "label": "write_rules_to_file",
+        "importPath": "rules_parser",
+        "description": "rules_parser",
+        "isExtraImport": true,
+        "detail": "rules_parser",
+        "documentation": {}
+    },
+    {
+        "label": "remove_label_from_all",
+        "importPath": "rules_parser",
+        "description": "rules_parser",
+        "isExtraImport": true,
+        "detail": "rules_parser",
+        "documentation": {}
+    },
+    {
+        "label": "train_test_split",
+        "importPath": "sklearn.model_selection",
+        "description": "sklearn.model_selection",
+        "isExtraImport": true,
+        "detail": "sklearn.model_selection",
+        "documentation": {}
+    },
+    {
+        "label": "train_test_split",
+        "importPath": "sklearn.model_selection",
+        "description": "sklearn.model_selection",
+        "isExtraImport": true,
+        "detail": "sklearn.model_selection",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "Enum",
+        "importPath": "enum",
+        "description": "enum",
+        "isExtraImport": true,
+        "detail": "enum",
+        "documentation": {}
+    },
+    {
+        "label": "Enum",
+        "importPath": "enum",
+        "description": "enum",
+        "isExtraImport": true,
+        "detail": "enum",
+        "documentation": {}
+    },
+    {
+        "label": "tqdm",
+        "importPath": "tqdm",
+        "description": "tqdm",
+        "isExtraImport": true,
+        "detail": "tqdm",
+        "documentation": {}
+    },
+    {
+        "label": "tqdm",
+        "importPath": "tqdm",
+        "description": "tqdm",
+        "isExtraImport": true,
+        "detail": "tqdm",
+        "documentation": {}
+    },
+    {
+        "label": "Random",
+        "importPath": "weka.core.classes",
+        "description": "weka.core.classes",
+        "isExtraImport": true,
+        "detail": "weka.core.classes",
+        "documentation": {}
+    },
+    {
+        "label": "weka.core.dataset",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "weka.core.dataset",
+        "description": "weka.core.dataset",
+        "detail": "weka.core.dataset",
+        "documentation": {}
+    },
+    {
+        "label": "data_dir",
+        "kind": 5,
+        "importPath": "Test_Prog (TO BE REVISITED).jrip",
+        "description": "Test_Prog (TO BE REVISITED).jrip",
+        "peekOfCode": "data_dir = \"/home/fracpete/temp/pww/data\"\nresults_dir = \"/home/fracpete/temp/pww/results\"\ndatasets = os.listdir(data_dir)\nfor i in range(len(datasets)):\n    train_path = os.path.join(data_dir, datasets[i])\n    print(\"\\n\" + str(i+1) + \"/\" + str(len(datasets)) + \": \" + train_path + \"\\n\")\n    # load dataset - adjust the options if necessary\n    # https://weka.sourceforge.io/doc.dev/weka/core/converters/CSVLoader.html\n    loader = Loader(classname=\"weka.core.converters.CSVLoader\", options=[])\n    train = loader.load_file(train_path)",
+        "detail": "Test_Prog (TO BE REVISITED).jrip",
+        "documentation": {}
+    },
+    {
+        "label": "results_dir",
+        "kind": 5,
+        "importPath": "Test_Prog (TO BE REVISITED).jrip",
+        "description": "Test_Prog (TO BE REVISITED).jrip",
+        "peekOfCode": "results_dir = \"/home/fracpete/temp/pww/results\"\ndatasets = os.listdir(data_dir)\nfor i in range(len(datasets)):\n    train_path = os.path.join(data_dir, datasets[i])\n    print(\"\\n\" + str(i+1) + \"/\" + str(len(datasets)) + \": \" + train_path + \"\\n\")\n    # load dataset - adjust the options if necessary\n    # https://weka.sourceforge.io/doc.dev/weka/core/converters/CSVLoader.html\n    loader = Loader(classname=\"weka.core.converters.CSVLoader\", options=[])\n    train = loader.load_file(train_path)\n    train.class_is_last()",
+        "detail": "Test_Prog (TO BE REVISITED).jrip",
+        "documentation": {}
+    },
+    {
+        "label": "datasets",
+        "kind": 5,
+        "importPath": "Test_Prog (TO BE REVISITED).jrip",
+        "description": "Test_Prog (TO BE REVISITED).jrip",
+        "peekOfCode": "datasets = os.listdir(data_dir)\nfor i in range(len(datasets)):\n    train_path = os.path.join(data_dir, datasets[i])\n    print(\"\\n\" + str(i+1) + \"/\" + str(len(datasets)) + \": \" + train_path + \"\\n\")\n    # load dataset - adjust the options if necessary\n    # https://weka.sourceforge.io/doc.dev/weka/core/converters/CSVLoader.html\n    loader = Loader(classname=\"weka.core.converters.CSVLoader\", options=[])\n    train = loader.load_file(train_path)\n    train.class_is_last()\n    # turn all string attributes into nominal ones (skip this, if not necessary)",
+        "detail": "Test_Prog (TO BE REVISITED).jrip",
+        "documentation": {}
+    },
+    {
+        "label": "clear_console",
+        "kind": 2,
+        "importPath": "Test_Prog (TO BE REVISITED).main",
+        "description": "Test_Prog (TO BE REVISITED).main",
+        "peekOfCode": "def clear_console() -> None:\n    \"\"\"Clear the console\"\"\"\n    clear = lambda: os.system(\"cls\")  # noqa: E731\n    clear()\ndef preprocess_data(extraction: str) -> tuple[pd.DataFrame, pd.DataFrame]:\n    \"\"\"Preprocess the data\"\"\"\n    df = pd.read_csv(BASE_DIR + extraction + EXTENSION)  # type: ignore\n    df_market = pd.read_csv(BASE_DIR + extraction + EXTENSION)\n    # Remove market columns\n    df_market: pd.DataFrame = extract_market_information(df_market)  # type: ignore",
+        "detail": "Test_Prog (TO BE REVISITED).main",
+        "documentation": {}
+    },
+    {
+        "label": "preprocess_data",
+        "kind": 2,
+        "importPath": "Test_Prog (TO BE REVISITED).main",
+        "description": "Test_Prog (TO BE REVISITED).main",
+        "peekOfCode": "def preprocess_data(extraction: str) -> tuple[pd.DataFrame, pd.DataFrame]:\n    \"\"\"Preprocess the data\"\"\"\n    df = pd.read_csv(BASE_DIR + extraction + EXTENSION)  # type: ignore\n    df_market = pd.read_csv(BASE_DIR + extraction + EXTENSION)\n    # Remove market columns\n    df_market: pd.DataFrame = extract_market_information(df_market)  # type: ignore\n    df = remove_market_information_from_extraction(df)\n    df.to_csv(extraction + NOMARKET_EXT + EXTENSION, index=False)  # type: ignore\n    return df, df_market  # type: ignore\ndef weka_simulation(extractions: list[str], action: str) -> None:",
+        "detail": "Test_Prog (TO BE REVISITED).main",
+        "documentation": {}
+    },
+    {
+        "label": "weka_simulation",
+        "kind": 2,
+        "importPath": "Test_Prog (TO BE REVISITED).main",
+        "description": "Test_Prog (TO BE REVISITED).main",
+        "peekOfCode": "def weka_simulation(extractions: list[str], action: str) -> None:\n    \"\"\"Simulations\"\"\"\n    for _, extraction in enumerate(extractions):\n        print(\"\\n\\n\")\n        print(f\"Processing {extraction + EXTENSION}...\\n\")\n        extraction, _ = preprocess_data(extraction)\n        # Attribute extraction\n        attribute = remove_features_by_pos(\n            extraction + NOMARKET_EXT + EXTENSION,\n            COLUMNS_TO_REMOVE,",
+        "detail": "Test_Prog (TO BE REVISITED).main",
+        "documentation": {}
+    },
+    {
+        "label": "wittgenstein_simulation",
+        "kind": 2,
+        "importPath": "Test_Prog (TO BE REVISITED).main",
+        "description": "Test_Prog (TO BE REVISITED).main",
+        "peekOfCode": "def wittgenstein_simulation(\n    extractions: list[str], direction: str, num_rules: int = 10, action: str = \"compra\"\n) -> None:\n    \"\"\"Simulations\"\"\"\n    for _, extraction in enumerate(extractions):\n        print(f\"Processing {extraction}...\\n\")\n        df, df_market = preprocess_data(extraction)\n        # Get categorical columns\n        categories = transform_label_to_numeric(  # type: ignore\n            df, TARGET_COL_NAME, Direction[direction]  # type: ignore",
+        "detail": "Test_Prog (TO BE REVISITED).main",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "Test_Prog (TO BE REVISITED).main",
+        "description": "Test_Prog (TO BE REVISITED).main",
+        "peekOfCode": "def main() -> None:\n    \"\"\"\n    Main code is here\n    \"\"\"\n    jvm.start(packages=True, logging_level=0)\n    clear_console()\n    try:  # type: ignore\n        # weka_simulation(ES_ALCISTA_EXTRACTIONS, \"compra\")\n        # weka_simulation(ES_BAJISTA_EXTRACTIONS, \"venta\")\n        wittgenstein_simulation(ES_ALCISTA_EXTRACTIONS, direction=\"UP\", num_rules=10)",
+        "detail": "Test_Prog (TO BE REVISITED).main",
+        "documentation": {}
+    },
+    {
+        "label": "run_command",
+        "kind": 2,
+        "importPath": "Test_Prog (TO BE REVISITED).weka_cl",
+        "description": "Test_Prog (TO BE REVISITED).weka_cl",
+        "peekOfCode": "def run_command(command):\n    try:\n        subprocess.run(command, check=True)\n    except subprocess.CalledProcessError as e:\n        print(f\"Error executing command: {e}\")\n# 1. Read CSV and Remove Attributes\nrun_command(\n    [\n        \"java\",\n        \"-cp\",",
+        "detail": "Test_Prog (TO BE REVISITED).weka_cl",
+        "documentation": {}
+    },
+    {
+        "label": "WEKA_JAR_DIR",
+        "kind": 5,
+        "importPath": "Test_Prog (TO BE REVISITED).weka_cl",
+        "description": "Test_Prog (TO BE REVISITED).weka_cl",
+        "peekOfCode": "WEKA_JAR_DIR = \"C:\\Program Files\\Weka-3-8-6\\weka.jar\"\ndef run_command(command):\n    try:\n        subprocess.run(command, check=True)\n    except subprocess.CalledProcessError as e:\n        print(f\"Error executing command: {e}\")\n# 1. Read CSV and Remove Attributes\nrun_command(\n    [\n        \"java\",",
+        "detail": "Test_Prog (TO BE REVISITED).weka_cl",
+        "documentation": {}
+    },
+    {
+        "label": "num_seeds",
+        "kind": 5,
+        "importPath": "Test_Prog (TO BE REVISITED).weka_cl",
+        "description": "Test_Prog (TO BE REVISITED).weka_cl",
+        "peekOfCode": "num_seeds = 5  # Adjust this to the desired number of seeds\nfor seed in range(1, num_seeds + 1):\n    run_command(\n        [\n            \"java\",\n            \"-cp\",\n            WEKA_JAR_DIR,\n            \"weka.classifiers.rules.JRip\",\n            \"-t\",\n            \"output2.csv\",",
+        "detail": "Test_Prog (TO BE REVISITED).weka_cl",
+        "documentation": {}
+    },
+    {
+        "label": "remove_features_with_low_corr",
+        "kind": 2,
+        "importPath": "jrip_rules",
+        "description": "jrip_rules",
+        "peekOfCode": "def remove_features_with_low_corr(\n    df: pd.DataFrame,\n    label: str,\n    corr_threshold: float,\n    sort_features_by_corr: bool = False,\n) -> pd.DataFrame:\n    \"\"\"Remove the features with low correlation\n    Args:\n        df (pd.DataFrame): DataFrame to extract the features from\n        label (str): Name of the goal column (against which the features will be correlated)",
+        "detail": "jrip_rules",
+        "documentation": {}
+    },
+    {
+        "label": "perform_one_ripper_run",
+        "kind": 2,
+        "importPath": "jrip_rules",
+        "description": "jrip_rules",
+        "peekOfCode": "def perform_one_ripper_run(\n    data_train: pd.DataFrame,\n    goal_train: pd.DataFrame,\n    pos_class: int = 1,\n    prune_size: float = 0.33,\n    optimizations: Union[int, list[int]] = 2,\n    max_rules: int = 10,\n    random_state: int = 1,\n) -> Any:\n    \"\"\"Perform one run of the ripper algorithm\"\"\"",
+        "detail": "jrip_rules",
+        "documentation": {}
+    },
+    {
+        "label": "perform_multiple_ripper_runs",
+        "kind": 2,
+        "importPath": "jrip_rules",
+        "description": "jrip_rules",
+        "peekOfCode": "def perform_multiple_ripper_runs(\n    df: pd.DataFrame,\n    df_market: pd.DataFrame,\n    data_train: pd.DataFrame,\n    data_test: pd.DataFrame,\n    goal_train: pd.DataFrame,\n    pos_class: int = 1,\n    prune_size: float = 0.33,\n    optimizations: Union[int, list[int]] = 2,\n    max_rules: int = 3,",
+        "detail": "jrip_rules",
+        "documentation": {}
+    },
+    {
+        "label": "predict_with_ripper",
+        "kind": 2,
+        "importPath": "jrip_rules",
+        "description": "jrip_rules",
+        "peekOfCode": "def predict_with_ripper(\n    ripper_clf: Any,\n    data_train: pd.DataFrame,\n    data_test: pd.DataFrame,\n) -> tuple[Any, Any]:\n    \"\"\"Predict the values with the ripper classifier\n     Args:\n        ripper_clf (RIPPER): Trained ripper classifier\n        df (pd.DataFrame): DataFrame with the reduced features\n        data_test (pd.DataFrame): DataFrame with the test data",
+        "detail": "jrip_rules",
+        "documentation": {}
+    },
+    {
+        "label": "clear_console",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def clear_console() -> None:\n    \"\"\"Clear the console\"\"\"\n    clear = lambda: os.system(\"cls\")  # noqa: E731\n    clear()\ndef preprocess_data(extraction: str) -> tuple[pd.DataFrame, pd.DataFrame]:\n    \"\"\"Preprocess the data\"\"\"\n    df = pd.read_csv(extraction)  # type: ignore\n    df_market = pd.read_csv(extraction)\n    # Remove market columns\n    df_market: pd.DataFrame = extract_market_information(df_market)  # type: ignore",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "preprocess_data",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def preprocess_data(extraction: str) -> tuple[pd.DataFrame, pd.DataFrame]:\n    \"\"\"Preprocess the data\"\"\"\n    df = pd.read_csv(extraction)  # type: ignore\n    df_market = pd.read_csv(extraction)\n    # Remove market columns\n    df_market: pd.DataFrame = extract_market_information(df_market)  # type: ignore\n    df = remove_market_information_from_extraction(df)\n    df.to_csv(extraction + NOMARKET_EXT + EXTENSION, index=False)  # type: ignore\n    return df, df_market  # type: ignore\ndef weka_simulation(",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "weka_simulation",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def weka_simulation(\n    extractions: dict[str, list[str]],\n    attr_corr: float = 0.01,\n    train_size: int = 0.7,\n    num_rules: int = 50,\n) -> None:\n    for direction, extractions in extractions.items():\n        for extraction in extractions:\n            print(f\"Procesando extracción en la dirección {direction.upper()}\")\n            print(f\"Processing extraction {extraction}:\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "wittgenstein_simulation",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def wittgenstein_simulation(\n    extractions: dict[str, list[str]],\n    attr_corr: float = 0.01,\n    train_size: float = 0.7,\n    seed_val: int = 1,\n    num_rules: int = 50,\n) -> None:\n    for direction, extractions in extractions.items():\n        for extraction in extractions:\n            print(f\"Procesando extracción en la dirección {direction.upper()}\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def main() -> None:\n    \"\"\"Main function for the project.\"\"\"\n    print(\"Starting JVM...\")\n    jvm.start(packages=True, logging_level=0)\n    clear_console()\n    try:  # type: ignore\n        weka_simulation(EXTRACTIONS, 0.01, 0.7, 100)\n        weka_simulation(EXTRACTIONS, 0.02, 0.7, 100)\n    except Exception as e:  # type: ignore\n        print(e)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "MARKET_COLS",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "MARKET_COLS = [\"Date\", \"Open\", \"High\", \"Low\", \"Close\", \"Volume\"]\nCOLUMNS_TO_REMOVE: list[str] = [\"1\", \"3-7\"]\nRIPPER: list[str] = [\"WEKA\", \"WITTGENSTEIN\"]\nNOMARKET_EXT: str = \"_NOMARKET\"\nRULES_EXT: str = \"_rules\"\nEXTENSION: str = \".csv\"\ndef clear_console() -> None:\n    \"\"\"Clear the console\"\"\"\n    clear = lambda: os.system(\"cls\")  # noqa: E731\n    clear()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_metrics",
+        "kind": 2,
+        "importPath": "metrics",
+        "description": "metrics",
+        "peekOfCode": "def calculate_metrics(\n    df: pd.DataFrame,\n    df_train: pd.DataFrame,\n    df_test: pd.DataFrame,\n    base_capital: float = 10_000.00,\n    shift: int = 2,\n) -> dict[str, float]:\n    \"\"\"Calulate the metrics for the predictions\"\"\"\n    metrics: dict[str, float] = {}\n    df[\"Strategy_Returns\"] = 0",
+        "detail": "metrics",
+        "documentation": {}
+    },
+    {
+        "label": "determine_if_rules_validate",
+        "kind": 2,
+        "importPath": "metrics",
+        "description": "metrics",
+        "peekOfCode": "def determine_if_rules_validate(metrics: dict[str, float]) -> bool:\n    \"\"\"Determine if the rules validate\"\"\"\n    return all(\n        [\n            metrics[\"profit_factor\"] >= VALIDATION_METRICS[\"profit_factor\"],\n            metrics[\"profit_factor_train\"] >= VALIDATION_METRICS[\"profit_factor_train\"],\n            metrics[\"profit_factor_test\"] >= VALIDATION_METRICS[\"profit_factor_test\"],\n            metrics[\"porcentaje_ganadoras\"]\n            >= VALIDATION_METRICS[\"porcentaje_ganadoras\"],\n            metrics[\"trades\"] >= VALIDATION_METRICS[\"trades\"],",
+        "detail": "metrics",
+        "documentation": {}
+    },
+    {
+        "label": "print_main_rules",
+        "kind": 2,
+        "importPath": "metrics",
+        "description": "metrics",
+        "peekOfCode": "def print_main_rules(metrics: dict[str, float]) -> None:\n    \"\"\"Print rules used to validate\"\"\"\n    for rule in VALIDATION_METRICS.keys():\n        print(f\"{rule} value: {metrics[rule]}\")",
+        "detail": "metrics",
+        "documentation": {}
+    },
+    {
+        "label": "df_from_csv",
+        "kind": 2,
+        "importPath": "process_df",
+        "description": "process_df",
+        "peekOfCode": "def df_from_csv(file_path: str) -> pd.DataFrame:\n    \"\"\"Get the dataframe from the csv file\"\"\"\n    df = pd.read_csv(file_path, sep=\",\", header=0)\n    return df\ndef convert_to_time(\n    date_col: str, time_col: str, dt_col_name: str, df: pd.DataFrame\n) -> pd.DataFrame:\n    \"\"\"Convert the column to datetime format\"\"\"\n    df[time_col + TEMP_SUFFIX] = (  # type: ignore\n        (df[time_col] / 100).astype(int).astype(str).apply(lambda x: f\"{x}:00\")",
+        "detail": "process_df",
+        "documentation": {}
+    },
+    {
+        "label": "convert_to_time",
+        "kind": 2,
+        "importPath": "process_df",
+        "description": "process_df",
+        "peekOfCode": "def convert_to_time(\n    date_col: str, time_col: str, dt_col_name: str, df: pd.DataFrame\n) -> pd.DataFrame:\n    \"\"\"Convert the column to datetime format\"\"\"\n    df[time_col + TEMP_SUFFIX] = (  # type: ignore\n        (df[time_col] / 100).astype(int).astype(str).apply(lambda x: f\"{x}:00\")\n    )\n    df[dt_col_name] = pd.to_datetime(\n        df[date_col] + \" \" + df[time_col + TEMP_SUFFIX], dayfirst=True\n    )",
+        "detail": "process_df",
+        "documentation": {}
+    },
+    {
+        "label": "separate_market_information_from",
+        "kind": 2,
+        "importPath": "process_df",
+        "description": "process_df",
+        "peekOfCode": "def separate_market_information_from(\n    df: pd.DataFrame,\n) -> tuple[pd.DataFrame, pd.DataFrame]:\n    \"\"\"Separate the market information from the dataframe\"\"\"\n    market_df = df[MARKET_COLS]\n    df.drop(MARKET_COLS[1:], axis=1, inplace=True)\n    df.set_index(df.columns[0], inplace=True)\n    market_df.set_index(market_df.columns[0], inplace=True)\n    return df, market_df\ndef join_market_information(df: pd.DataFrame, df_market: pd.DataFrame) -> pd.DataFrame:",
+        "detail": "process_df",
+        "documentation": {}
+    },
+    {
+        "label": "join_market_information",
+        "kind": 2,
+        "importPath": "process_df",
+        "description": "process_df",
+        "peekOfCode": "def join_market_information(df: pd.DataFrame, df_market: pd.DataFrame) -> pd.DataFrame:\n    \"\"\"Join the market information with the dataframe\"\"\"\n    df = pd.concat([df, df_market], axis=1)  # type: ignore\n    # df.reset_index(inplace=True)\n    return df\ndef transform_label_into_numeric(\n    df: pd.DataFrame, label_col: str = \"LABEL\"\n) -> pd.DataFrame:\n    \"\"\"Transform the label column into numeric\"\"\"\n    df[label_col] = df[label_col].apply(lambda x: LABEL_TO_NUM[x])  # type: ignore",
+        "detail": "process_df",
+        "documentation": {}
+    },
+    {
+        "label": "transform_label_into_numeric",
+        "kind": 2,
+        "importPath": "process_df",
+        "description": "process_df",
+        "peekOfCode": "def transform_label_into_numeric(\n    df: pd.DataFrame, label_col: str = \"LABEL\"\n) -> pd.DataFrame:\n    \"\"\"Transform the label column into numeric\"\"\"\n    df[label_col] = df[label_col].apply(lambda x: LABEL_TO_NUM[x])  # type: ignore\n    return df\ndef process_csv(file_path: str) -> tuple[pd.DataFrame, pd.DataFrame]:\n    \"\"\"Process the csv file to get the dataframe\"\"\"\n    df = df_from_csv(file_path)\n    df = convert_to_time(\"Date\", \"time\", \"Datetime\", df)",
+        "detail": "process_df",
+        "documentation": {}
+    },
+    {
+        "label": "process_csv",
+        "kind": 2,
+        "importPath": "process_df",
+        "description": "process_df",
+        "peekOfCode": "def process_csv(file_path: str) -> tuple[pd.DataFrame, pd.DataFrame]:\n    \"\"\"Process the csv file to get the dataframe\"\"\"\n    df = df_from_csv(file_path)\n    df = convert_to_time(\"Date\", \"time\", \"Datetime\", df)\n    df, df_market = separate_market_information_from(df)\n    df = transform_label_into_numeric(df, \"LABEL\")\n    return df, df_market\ndef separate_into_train_test(\n    df: pd.DataFrame,\n    label: str = \"LABEL\",",
+        "detail": "process_df",
+        "documentation": {}
+    },
+    {
+        "label": "separate_into_train_test",
+        "kind": 2,
+        "importPath": "process_df",
+        "description": "process_df",
+        "peekOfCode": "def separate_into_train_test(\n    df: pd.DataFrame,\n    label: str = \"LABEL\",\n    test_size: float = 0.3,\n    do_shuffle: bool = False,\n) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:\n    \"\"\"Separate the dataframe into train and test\"\"\"\n    data: pd.DataFrame = df.drop(label, axis=1)\n    # goal: pd.DataFrame = df[label].values.reshape(-1, 1)\n    goal: pd.DataFrame = df[label]",
+        "detail": "process_df",
+        "documentation": {}
+    },
+    {
+        "label": "extract_rules_from_all",
+        "kind": 2,
+        "importPath": "rules_parser",
+        "description": "rules_parser",
+        "peekOfCode": "def extract_rules_from_all(iterations: list[str]) -> list[str]:\n    \"\"\"Extract the rules from all iterations\"\"\"\n    rules: list[str] = []\n    for iteration in iterations:\n        rules.extend(_separate_rules_from(iteration))\n    return rules\ndef _separate_conditions_from(rules: str) -> list[str]:\n    \"\"\"Separate condtions from one rule\"\"\"\n    return rules.split(CONDITIONS_SEP)\ndef _remove_brackets_from(rule: str) -> str:",
+        "detail": "rules_parser",
+        "documentation": {}
+    },
+    {
+        "label": "process_rules",
+        "kind": 2,
+        "importPath": "rules_parser",
+        "description": "rules_parser",
+        "peekOfCode": "def process_rules(rules: list[str]) -> list[str]:\n    \"\"\"Process the rules\"\"\"\n    return [_process_rule(rule) for rule in rules]\ndef _tokenize_one_rule(rule: str) -> list[str]:\n    \"\"\"Tokenize one rule\"\"\"\n    # breakpoint()\n    tokens = re.split(r\"(=|<=|>=)\", rule)\n    pattern = re.compile(r\"(-?\\d+(?:\\.\\d+)?)\\s*-\\s*(-?\\d+(?:\\.\\d+)?)\")\n    bound_values = pattern.match(tokens[2])\n    if bound_values is not None:",
+        "detail": "rules_parser",
+        "documentation": {}
+    },
+    {
+        "label": "correct_condition_with_bound",
+        "kind": 2,
+        "importPath": "rules_parser",
+        "description": "rules_parser",
+        "peekOfCode": "def correct_condition_with_bound(rule: str) -> str:\n    \"\"\"Correct the condition with bound values (<= and >=)\"\"\"\n    tokens: list[str] = _tokenize_one_rule(rule)\n    if len(tokens) == 4:\n        return f\"{tokens[0]}>={tokens[2]} and {tokens[0]}<={tokens[3]}\"\n    return rule\ndef _prevent_divide_by_zero_in(rule: str) -> str:\n    \"\"\"Adds divide by zero checks to the rules\"\"\"\n    tokens = re.findall(r\"\\/([^\\/\\<>=]+)\", rule)\n    # Remove duplicates",
+        "detail": "rules_parser",
+        "documentation": {}
+    },
+    {
+        "label": "remove_label_from_all",
+        "kind": 2,
+        "importPath": "rules_parser",
+        "description": "rules_parser",
+        "peekOfCode": "def remove_label_from_all(rules: list[str]) -> list[str]:\n    \"\"\"Removes the >= LABEL from the rules\"\"\"\n    return [_remove_label_from_one(rule) for rule in rules]\ndef _convert_rules_to_easylanguage(\n    rules: list[str], variable: str, operation: str\n) -> list[str]:\n    \"\"\"Convert the rules to easylanguage\"\"\"\n    conditions: list[str] = [\n        f\"if {variable} = {i} and ({_prevent_divide_by_zero_in(rule)}) then {operation}=true;\"  # noqa: E501\n        for i, rule in enumerate(rules)",
+        "detail": "rules_parser",
+        "documentation": {}
+    },
+    {
+        "label": "rules_to_easy_language",
+        "kind": 2,
+        "importPath": "rules_parser",
+        "description": "rules_parser",
+        "peekOfCode": "def rules_to_easy_language(rules: list[str], operation: str) -> list[str]:\n    \"\"\"Write the easylanguage code for testing the rules\"\"\"\n    variable: str = \"input_rule\"\n    el_rules: list[str] = _convert_rules_to_easylanguage(\n        process_rules(extract_rules_from_all(rules)), variable, operation\n    )  # noqa: E501\n    return el_rules\ndef write_rules_to_file(rules: list[str], filename: str = \"rules.txt\") -> None:\n    \"\"\"Write the rules to a file\"\"\"\n    with open(filename, \"w\", encoding=\"utf-8\") as file:",
+        "detail": "rules_parser",
+        "documentation": {}
+    },
+    {
+        "label": "write_rules_to_file",
+        "kind": 2,
+        "importPath": "rules_parser",
+        "description": "rules_parser",
+        "peekOfCode": "def write_rules_to_file(rules: list[str], filename: str = \"rules.txt\") -> None:\n    \"\"\"Write the rules to a file\"\"\"\n    with open(filename, \"w\", encoding=\"utf-8\") as file:\n        for rule in rules:\n            file.write(f\"{rule}\\n\")",
+        "detail": "rules_parser",
+        "documentation": {}
+    },
+    {
+        "label": "RULES_SPLIT_SEP",
+        "kind": 5,
+        "importPath": "rules_parser",
+        "description": "rules_parser",
+        "peekOfCode": "RULES_SPLIT_SEP = \" V \"\nCONDITIONS_SEP = \" and \"\nRULES_REPLACEMENTS: dict[str, str] = {\n    \"[[\": \"\",\n    \"]]\": \"\",\n    \"([\": \"(\",\n    \"])\": \")\",\n    \"^\": \" and \",\n    \"=<\": \"<=\",\n    \"=>\": \">=\",",
+        "detail": "rules_parser",
+        "documentation": {}
+    },
+    {
+        "label": "CONDITIONS_SEP",
+        "kind": 5,
+        "importPath": "rules_parser",
+        "description": "rules_parser",
+        "peekOfCode": "CONDITIONS_SEP = \" and \"\nRULES_REPLACEMENTS: dict[str, str] = {\n    \"[[\": \"\",\n    \"]]\": \"\",\n    \"([\": \"(\",\n    \"])\": \")\",\n    \"^\": \" and \",\n    \"=<\": \"<=\",\n    \"=>\": \">=\",\n    \"$\": \",\",",
+        "detail": "rules_parser",
+        "documentation": {}
+    },
+    {
+        "label": "Direction",
+        "kind": 6,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "class Direction(Enum):\n    \"\"\"\n    Enum class\n    \"\"\"\n    UP = \"UP\"\n    DOWN = \"DOWN\"\nMARKET_COL_NAMES = [\"Date\", \"time\", \"Open\", \"Close\", \"High\", \"Low\", \"Volume\"]\nRULES_SPLIT_SEP = \" V \"\nCONDITIONS_SEP = \" and \"\nRULES_REPLACEMENTS: dict[str, str] = {",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "extract_market_information",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def extract_market_information(df: pd.DataFrame) -> pd.DataFrame:\n    \"\"\"\n    Extract the market information\n    \"\"\"\n    df_market = df[MARKET_COL_NAMES]\n    return df_market\ndef remove_market_information_from_extraction(\n    df: pd.DataFrame,\n) -> pd.DataFrame:\n    \"\"\"",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "remove_market_information_from_extraction",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def remove_market_information_from_extraction(\n    df: pd.DataFrame,\n) -> pd.DataFrame:\n    \"\"\"\n    Remove the market information from extraction\n    \"\"\"\n    # Keep \"time\" column in the final dataframe\n    cols = [col for col in MARKET_COL_NAMES if col != \"time\"]\n    return df.drop(cols, axis=1)  # type: ignore\ndef transform_label_to_numeric(  # type: ignore",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "transform_label_to_numeric",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def transform_label_to_numeric(  # type: ignore\n    df: pd.DataFrame,\n    target_col_name: str,\n    direction: Direction,\n) -> pd.Series:  # type: ignore\n    \"\"\"\n    Transform the label to numeric\n    \"\"\"\n    cat_label: pd.Series = pd.Series(  # type: ignore\n        np.where(df[target_col_name] == direction.value, 1, -1)",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "get_dataframe_with_new_target",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def get_dataframe_with_new_target(\n    df: pd.DataFrame, alt_target_col_name: str, cat_label: pd.Series  # type: ignore\n) -> pd.DataFrame:\n    \"\"\"\n    Get the dataframe with the new target\n    \"\"\"\n    dataframe: pd.DataFrame = df[df.columns.to_list()[:-1]]\n    dataframe[alt_target_col_name] = cat_label\n    return dataframe\ndef get_correlation_with_label(",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "get_correlation_with_label",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def get_correlation_with_label(\n    dataframe: pd.DataFrame,\n    alt_target_col_name: str,\n    new_target_col_name: str,\n) -> pd.DataFrame:\n    \"\"\"\n    Get the dataframe with the new target\n    \"\"\"\n    cor: pd.DataFrame = abs(dataframe.corr())[[alt_target_col_name]]\n    cor.drop(cor.tail(1).index, inplace=True)  # type: ignore",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "select_features_from",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def select_features_from(\n    cor: pd.DataFrame, new_target_col_name: str, threshold: float\n) -> list[str]:\n    \"\"\"\n    Select the features from the dataframe\n    \"\"\"\n    selected_features: list[str] = cor[cor[new_target_col_name] > threshold].index.to_list()  # type: ignore #noqa: E501\n    return selected_features\ndef create_dataframe_for_rule_extract(\n    df: pd.DataFrame,",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "create_dataframe_for_rule_extract",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def create_dataframe_for_rule_extract(\n    df: pd.DataFrame,\n    selected_features: list[str],\n    target_col_name: str,\n) -> pd.DataFrame:\n    \"\"\"\n    Create the dataframe for the rule extraction\n    \"\"\"\n    dataframe: pd.DataFrame = df[selected_features]  # type: ignore\n    # dataframe.loc[:, target_col_name] = df[target_col_name].values  # type: ignore",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_rule_metrics",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def calculate_rule_metrics(\n    df: pd.DataFrame, ripper_clf: Any, train: pd.DataFrame, test: pd.DataFrame\n) -> bool:\n    \"\"\"Calculate the metrics for the rules\"\"\"\n    breakpoint()\n    predict_train = ripper_clf.predict(train)  # type: ignore\n    predict_test = ripper_clf.predict(test)  # type: ignore\n    # TODO: Refactor to split concerns\n    shift = -2\n    df[\"Prediction\"] = np.append(predict_train, predict_test)  # type: ignore",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "extract_rules_from_all",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def extract_rules_from_all(iterations: list[str]) -> list[str]:\n    \"\"\"Extract the rules from all iterations\"\"\"\n    rules: list[str] = []\n    for iteration in iterations:\n        rules.extend(_separate_rules_from(iteration))\n    return rules\ndef _separate_conditions_from(rules: str) -> list[str]:\n    \"\"\"Separate condtions from one rule\"\"\"\n    return rules.split(CONDITIONS_SEP)\ndef _remove_brackets_from(rule: str) -> str:",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "process_rules",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def process_rules(rules: list[str]) -> list[str]:\n    \"\"\"Process the rules\"\"\"\n    return [_process_rule(rule) for rule in rules]\ndef _tokenize_one_rule(rule: str) -> list[str]:\n    \"\"\"Split one rule\"\"\"\n    # breakpoint()\n    tokens = re.split(r\"(=|<=|>=)\", rule)\n    pattern = re.compile(r\"(-?\\d+(?:\\.\\d+)?)\\s*-\\s*(-?\\d+(?:\\.\\d+)?)\")\n    bound_values = pattern.match(tokens[2])\n    if bound_values is not None:",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "correct_condition_with_bound",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def correct_condition_with_bound(rule: str) -> str:\n    \"\"\"Correct the condition with bound values (<= and >=)\"\"\"\n    tokens: list[str] = _tokenize_one_rule(rule)\n    if len(tokens) == 4:\n        return f\"{tokens[0]}>={tokens[2]} and {tokens[0]}<={tokens[3]}\"\n    return rule\ndef run_ripper_with_one_seed(\n    df: pd.DataFrame,\n    df_market: pd.DataFrame,\n    label: str,",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "run_ripper_with_one_seed",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def run_ripper_with_one_seed(\n    df: pd.DataFrame,\n    df_market: pd.DataFrame,\n    label: str,\n    direction: Direction,\n    split_pct: float = 0.3,\n    state: int = 1,\n    prune_size: float = 0.33,\n    optimizations: int = 2,\n    max_rules: int = 10,",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "run_one_ripper_iteration",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def run_one_ripper_iteration(\n    dataframe: pd.DataFrame,\n    df_market: pd.DataFrame,\n    label: str,\n    direction: Direction,\n    split_pct: float = 0.3,\n    state: int = 1,\n) -> list[str]:\n    \"\"\"Execute one ripper iteration\"\"\"\n    ripper_iteration = run_ripper_with_one_seed(",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "run_multiple_ripper_iterations",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def run_multiple_ripper_iterations(\n    dataframe: pd.DataFrame,\n    df_market: pd.DataFrame,\n    label: str,\n    direction: Direction,\n    iterations: int = 10,\n    split_pct: float = 0.3,\n    state: int = 1,\n) -> list[str]:\n    \"\"\"Execute multiple ripper iterations\"\"\"",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "rules_to_easy_language",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def rules_to_easy_language(rules: list[str], operation: str) -> list[str]:\n    \"\"\"Write the easylanguage code for testing the rules\"\"\"\n    variable: str = \"input_rule\"\n    el_rules: list[str] = _convert_rules_to_easylanguage(\n        _remove_label_from_all(rules), variable, operation\n    )  # noqa: E501\n    return el_rules\ndef write_rules_to_file(rules: list[str], filename: str = \"rules.txt\") -> None:\n    \"\"\"Write the rules to a file\"\"\"\n    with open(filename, \"w\", encoding=\"utf-8\") as file:",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "write_rules_to_file",
+        "kind": 2,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "def write_rules_to_file(rules: list[str], filename: str = \"rules.txt\") -> None:\n    \"\"\"Write the rules to a file\"\"\"\n    with open(filename, \"w\", encoding=\"utf-8\") as file:\n        for rule in rules:\n            file.write(f\"{rule}\\n\")",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "MARKET_COL_NAMES",
+        "kind": 5,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "MARKET_COL_NAMES = [\"Date\", \"time\", \"Open\", \"Close\", \"High\", \"Low\", \"Volume\"]\nRULES_SPLIT_SEP = \" V \"\nCONDITIONS_SEP = \" and \"\nRULES_REPLACEMENTS: dict[str, str] = {\n    \"[[\": \"\",\n    \"]]\": \"\",\n    \"([\": \"(\",\n    \"])\": \")\",\n    \"^\": \" and \",\n    \"=<\": \"<=\",",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "RULES_SPLIT_SEP",
+        "kind": 5,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "RULES_SPLIT_SEP = \" V \"\nCONDITIONS_SEP = \" and \"\nRULES_REPLACEMENTS: dict[str, str] = {\n    \"[[\": \"\",\n    \"]]\": \"\",\n    \"([\": \"(\",\n    \"])\": \")\",\n    \"^\": \" and \",\n    \"=<\": \"<=\",\n    \"=>\": \">=\",",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "CONDITIONS_SEP",
+        "kind": 5,
+        "importPath": "tradestation",
+        "description": "tradestation",
+        "peekOfCode": "CONDITIONS_SEP = \" and \"\nRULES_REPLACEMENTS: dict[str, str] = {\n    \"[[\": \"\",\n    \"]]\": \"\",\n    \"([\": \"(\",\n    \"])\": \")\",\n    \"^\": \" and \",\n    \"=<\": \"<=\",\n    \"=>\": \">=\",\n    \"$\": \",\",",
+        "detail": "tradestation",
+        "documentation": {}
+    },
+    {
+        "label": "SeedMode",
+        "kind": 6,
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "peekOfCode": "class SeedMode(Enum):\n    \"\"\"Seed mode\"\"\"\n    RANDOM = \"RANDOM\"\n    SEQUENTIAL = \"SEQUENTIAL\"\ndef load_file_to_classify(url: str) -> weka.core.dataset.Instances:\n    \"\"\"Load the file to classify\"\"\"\n    loader = Loader(classname=\"weka.core.converters.CSVLoader\")\n    data = loader.load_file(url)  # type: ignore\n    data.class_is_last()\n    return data",
+        "detail": "weka_process",
+        "documentation": {}
+    },
+    {
+        "label": "load_file_to_classify",
+        "kind": 2,
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "peekOfCode": "def load_file_to_classify(url: str) -> weka.core.dataset.Instances:\n    \"\"\"Load the file to classify\"\"\"\n    loader = Loader(classname=\"weka.core.converters.CSVLoader\")\n    data = loader.load_file(url)  # type: ignore\n    data.class_is_last()\n    return data\ndef remove_features_by_pos(\n    url: str, features_positions: list[str]\n) -> weka.core.dataset.Instances:\n    \"\"\"Removes features by position\"\"\"",
+        "detail": "weka_process",
+        "documentation": {}
+    },
+    {
+        "label": "remove_features_by_pos",
+        "kind": 2,
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "peekOfCode": "def remove_features_by_pos(\n    url: str, features_positions: list[str]\n) -> weka.core.dataset.Instances:\n    \"\"\"Removes features by position\"\"\"\n    data: weka.core.dataset.Instances = load_file_to_classify(url)\n    remove = Filter(\n        classname=\"weka.filters.unsupervised.attribute.Remove\",\n        options=[\"-R\", \",\".join(features_positions)],\n    )\n    remove.inputformat(data)",
+        "detail": "weka_process",
+        "documentation": {}
+    },
+    {
+        "label": "run_attribute_selection",
+        "kind": 2,
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "peekOfCode": "def run_attribute_selection(data: Any, ranker_threshold: float = 0.01) -> Any:\n    \"\"\"Run the attribute selection\"\"\"\n    attribute_selection = Filter(\n        classname=\"weka.filters.supervised.attribute.AttributeSelection\",\n        options=[\n            \"-E\",\n            \"weka.attributeSelection.CorrelationAttributeEval \",\n            \"-S\",\n            f\"weka.attributeSelection.Ranker -T {ranker_threshold} -N -1\",\n        ],",
+        "detail": "weka_process",
+        "documentation": {}
+    },
+    {
+        "label": "run_weka_jrip",
+        "kind": 2,
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "peekOfCode": "def run_weka_jrip(\n    data: Any,\n    train_pct: float = 0.7,\n    num_iterations: int = 1,\n    mode: SeedMode = SeedMode[\"RANDOM\"],\n) -> list[str]:\n    \"\"\"Run the weka JRip algorithm\"\"\"\n    if mode == SeedMode[\"RANDOM\"]:\n        seeds: list[int] = random.sample(range(num_iterations), num_iterations)\n    else:",
+        "detail": "weka_process",
+        "documentation": {}
+    },
+    {
+        "label": "process_weka",
+        "kind": 2,
+        "importPath": "weka_process",
+        "description": "weka_process",
+        "peekOfCode": "def process_weka(rules: list[str]) -> list[str]:\n    \"\"\"Convert the rules to easylanguage\"\"\"\n    rules_processed: list[str] = extract_rules_from_all(  # type: ignore\n        _remove_extra_spaces_from(\n            _remove_redundant_brackets_from(_remove_all_labels_from(rules))\n        )\n    )\n    return rules_processed  # type: ignore",
+        "detail": "weka_process",
+        "documentation": {}
+    }
+]
