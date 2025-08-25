@@ -541,13 +541,11 @@ def create_ddi_plot(df: pl.DataFrame) -> Figure:
         xaxis_title="Measured Depth (ft)",
         yaxis=dict(
             title="DDI",
-            titlefont=dict(color="purple"),
             tickfont=dict(color="purple"),
             side="left",
         ),
         yaxis2=dict(
             title="Tortuosity",
-            titlefont=dict(color="orange"),
             tickfont=dict(color="orange"),
             overlaying="y",
             side="right",
@@ -558,7 +556,7 @@ def create_ddi_plot(df: pl.DataFrame) -> Figure:
         legend=dict(
             x=0.02,
             y=0.98,
-            bgcolor="rgba(255,255,255,0.8)",
+            bgcolor="rgba(255,255,255,0.3)",
             bordercolor="Black",
             borderwidth=1,
         ),
