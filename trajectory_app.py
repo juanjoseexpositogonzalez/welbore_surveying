@@ -308,7 +308,7 @@ def calculate_trajectory_parameters(df: pl.DataFrame) -> pl.DataFrame:
 
         # Step 2.11: Calculate DDI
         if tvd > 0 and ahd > 0 and tortuosity > 0:
-            ddi: float = math.log10((ahd * md2 * tortuosity) / tvd)
+            ddi: float = max(math.log10((ahd * md2 * tortuosity) / tvd), 0.0)
         else:
             ddi = 0.0
 
@@ -479,14 +479,14 @@ def create_ddi_plot(df: pl.DataFrame) -> Figure:
             x=df["MD"].to_list(),
             y=df["DDI"].to_list(),
             mode="lines+markers",
-            name="Dogleg Deviation Index",
+            name="Drilling Difficulty Index",
             line=dict(color="purple", width=3),
             marker=dict(size=4, color="red"),
         )
     )
 
     fig.update_layout(
-        title="DDI (Dogleg Deviation Index) vs Measured Depth",
+        title="DDI (Drilling Difficulty Index) vs Measured Depth",
         xaxis_title="Measured Depth (ft)",
         yaxis_title="DDI",
         width=400,
@@ -767,7 +767,7 @@ def display_instructions() -> None:
         - ✅ North/East coordinates
         - ✅ Dogleg Severity (DLS)
         - ✅ Build/Turn rates
-        - ✅ DDI (Dogleg Deviation Index)
+        - ✅ DDI (Drilling Difficulty Index)
         - ✅ Closure distance and azimuth
         """)
 
