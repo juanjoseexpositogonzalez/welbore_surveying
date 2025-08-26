@@ -555,8 +555,8 @@ We welcome contributions from the drilling and software engineering communities!
 
 1. **Fork the repository**
 2. **Create feature branch**: `git checkout -b feature/amazing-feature`
-3. **Install development dependencies**: `pip install -r requirements-dev.txt`
-4. **Run tests**: `pytest tests/`
+3. **Install development dependencies**: `uv sync` or `pip install -r requirements-dev.txt`
+4. **Run tests**: `pytest tests/` or `poe test`
 5. **Submit pull request**
 
 ### Contribution Areas
